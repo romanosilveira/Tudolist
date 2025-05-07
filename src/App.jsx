@@ -1,18 +1,12 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './assets/components/Header'
-import Form from './assets/components/Form'
+import TaskForm from './components/TaskForm';
 
 function App() {
-
   return (
-    <>
-      <Header />
-      <main>
-        <Form />
-      </main>
-    </>
-  )
+    <div>
+      <TaskForm />
+    </div>
+  );
 }
 
-export default App
+export default App;
+
