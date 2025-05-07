@@ -3,7 +3,7 @@ import { useState } from 'react';
 function TaskForm({ addTask }) {
   const [formData, setFormData] = useState({
     titulo: '',
-    fecha: Date,
+    fecha: '',
     descripcion: '',
   });
 
@@ -31,7 +31,7 @@ function TaskForm({ addTask }) {
           <input
             type="text"
             name="titulo"
-            value={formData.titulo}
+            value={formData.titulo || ''}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -41,7 +41,7 @@ function TaskForm({ addTask }) {
           <label className="block text-sm font-medium mb-1">Descripción:</label>
           <textarea
             name="descripcion"
-            value={formData.descripcion}
+            value={formData.descripcion || ''}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -51,7 +51,7 @@ function TaskForm({ addTask }) {
           <label className="block text-sm font-medium mb-1">Fecha límite:</label>
           <input
             name="fecha"
-            value={formData.fecha}
+            value={formData.fecha || ''}
             type='date'
             onChange={handleChange}
             required
