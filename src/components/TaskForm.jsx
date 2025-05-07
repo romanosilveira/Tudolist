@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-function TaskForm({ addTask }) {
+function TaskForm({ addTask, taskToEdit, handleUpdate }) {
   const [formData, setFormData] = useState({
     titulo: '',
     fecha: Date,
     descripcion: '',
   });
 
+   // Si hay una tarea para editar, pre-llenamos el formulario
+    useEffect(() => {
+    if (taskToEdit) {
+      setFormData({
+        titulo: taskToEdit.titulo,
+        fecha: taskToEdit.fecha,
+        descripcion: taskToEdit.descripcion,
+      });
+    }
+  }, [taskToEdit]);
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -14,13 +25,20 @@ function TaskForm({ addTask }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newTask = {
-      id: Date.now(), // Usando `Date.now()` como id único
-      ...formData,
-    };
-    addTask(newTask); // Llamamos a la función recibida como prop
-    setFormData({ titulo: '', descripcion: '' });
+    if (taskToEdit) {
+      // Si estamos editando una tarea existente, la actualizamos
+      handleUpdate({ ...taskToEdit, ...formData });
+    } else {
+      // Si estamos creando una nueva tarea, la agregamos
+      const newTask = {
+        id: Date.now(),
+        ...formData,
+      };
+      addTask(newTask);
+    }
+    setFormData({ titulo: '', fecha: '', descripcion: '' }); // Limpiar el formulario
   };
+
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
@@ -31,7 +49,7 @@ function TaskForm({ addTask }) {
           <input
             type="text"
             name="titulo"
-            value={formData.titulo}
+            value={formData.titulo }
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -62,7 +80,7 @@ function TaskForm({ addTask }) {
           type="submit"
           className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-colors"
         >
-          Enviar
+          {taskToEdit ? 'Actualizar' : 'Enviar'}
         </button>
       </form>
     </div>

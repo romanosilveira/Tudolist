@@ -1,7 +1,7 @@
 
 import { Tarea } from "./Tarea";
 
-export const TasksList = ({ tasks }) => {
+export const TasksList = ({ tasks, handleDelete, handleEdit }) => {
 
   return (
     <div
@@ -11,6 +11,8 @@ export const TasksList = ({ tasks }) => {
         <Tarea
           key={task.id}
           task={task}
+          handleDelete={handleDelete}
+          handleEdit={handleEdit}  
           className=""    // <— coincide con tu selector
         />
       ))}
