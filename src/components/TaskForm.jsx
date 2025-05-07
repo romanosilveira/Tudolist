@@ -2,8 +2,8 @@ import { useState } from 'react';
 
 function TaskForm({ addTask }) {
   const [formData, setFormData] = useState({
-    nombre: '',
     titulo: '',
+    fecha: Date,
     descripcion: '',
   });
 
@@ -19,24 +19,13 @@ function TaskForm({ addTask }) {
       ...formData,
     };
     addTask(newTask); // Llamamos a la función recibida como prop
-    setFormData({ nombre: '', titulo: '', descripcion: '' });
+    setFormData({ titulo: '', descripcion: '' });
   };
 
   return (
     <div className="max-w-md mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
       <h2 className="text-2xl font-semibold mb-6 text-center">Formulario de Tarea</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block text-sm font-medium mb-1">Nombre:</label>
-          <input
-            type="text"
-            name="nombre"
-            value={formData.nombre}
-            onChange={handleChange}
-            required
-            className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-          />
-        </div>
         <div>
           <label className="block text-sm font-medium mb-1">Título:</label>
           <input
@@ -56,6 +45,17 @@ function TaskForm({ addTask }) {
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Fecha límite:</label>
+          <input
+            name="fecha"
+            value={formData.fecha}
+            type='date'
+            onChange={handleChange}
+            required
+            className="w-full p-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <button
