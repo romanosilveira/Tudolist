@@ -8,17 +8,18 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
     descripcion: '',
   });
 
-   // Si hay una tarea para editar, pre-llenamos el formulario
-    useEffect(() => {
+  // Si hay una tarea para editar, pre-llenamos el formulario
+  useEffect(() => {
     if (taskToEdit) {
       setFormData({
         titulo: taskToEdit.titulo,
         fecha: taskToEdit.fecha,
         descripcion: taskToEdit.descripcion,
+        tags: taskToEdit.tags,
       });
     }
   }, [taskToEdit]);
-  
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -38,7 +39,7 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
       };
       addTask(newTask);
     }
-    setFormData({ titulo: '', fecha: '', descripcion: '' }); // Limpiar el formulario
+    setFormData({ titulo: '', fecha: '', descripcion: '', tags: '' }); // Limpiar el formulario
 
   };
 
