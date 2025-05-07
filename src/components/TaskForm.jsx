@@ -1,22 +1,24 @@
 import { useState } from 'react';
 
-function TaskForm() {
+function TaskForm({ addTask }) {
   const [formData, setFormData] = useState({
     nombre: '',
     titulo: '',
     descripcion: '',
   });
 
-  const [submittedData, setSubmittedData] = useState(null);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setSubmittedData(formData);
+    const newTask = {
+      id: Date.now(), // Usando `Date.now()` como id único
+      ...formData,
+    };
+    addTask(newTask); // Llamamos a la función recibida como prop
     setFormData({ nombre: '', titulo: '', descripcion: '' });
   };
 
@@ -63,15 +65,6 @@ function TaskForm() {
           Enviar
         </button>
       </form>
-
-      {submittedData && (
-        <div className="mt-6 p-4 border border-green-300 rounded-md bg-green-50">
-          <h3 className="text-lg font-medium text-green-700 mb-2">Tarea Enviada</h3>
-          <p><strong>Nombre:</strong> {submittedData.nombre}</p>
-          <p><strong>Título:</strong> {submittedData.titulo}</p>
-          <p><strong>Descripción:</strong> {submittedData.descripcion}</p>
-        </div>
-      )}
     </div>
   );
 }
