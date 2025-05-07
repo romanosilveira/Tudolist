@@ -1,11 +1,23 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import TaskForm from './components/TaskForm';
 import {TasksList} from './components/TasksList';
 function App() {
-  const [tasks, setTasks] = useState([]);
+  const initialTasks = () => {
+    const localStorageTasks = localStorage.getItem("tasks");
+    return localStorageTasks ? JSON.parse(localStorageTasks) : []; //si hay elementos en el carrito loss converitmos a string si no lo dejamos vacio
+  };
+
+  const [tasks, setTasks] = useState(initialTasks);
+
+
 
   const [taskToEdit, setTaskToEdit] = useState(null);
 
+  // LocalStorage
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
+  
   const addTask = (newTask) => {
     setTasks((prevTasks) => [...prevTasks, newTask]);
   };
