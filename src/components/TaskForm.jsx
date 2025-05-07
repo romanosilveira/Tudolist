@@ -4,6 +4,7 @@ function TaskForm({ addTask }) {
   const [formData, setFormData] = useState({
     titulo: '',
     fecha: '',
+    tags: '',
     descripcion: '',
   });
 
@@ -19,7 +20,7 @@ function TaskForm({ addTask }) {
       ...formData,
     };
     addTask(newTask); // Llamamos a la función recibida como prop
-    setFormData({ titulo: '', descripcion: '' });
+    setFormData({ titulo: '', descripcion: '', fecha: '', tags: '' });
   };
 
   return (
@@ -56,6 +57,17 @@ function TaskForm({ addTask }) {
             onChange={handleChange}
             required
             className="w-full p-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Etiqueta:</label>
+          <input
+            name="tags"
+            value={formData.tags || ''}
+            type='text'
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <button

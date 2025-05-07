@@ -7,7 +7,10 @@ export const Tarea = ({ task, handleDelete, handleEdit, className }) => {
   return (
     <div className={`${className} flex flex-col justify-between gap-2 min-w-[280px] max-h-[250px] rounded-lg p-4 text-left text-black bg-[#F2F2F2] border-2 border-[#C0BBD7]`}>
       <div className="task-content-top">
-        <h2 className="text-xl font-bold font_bitter text-[#2F1D7B]">{task.titulo}</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-2xl font-bold font_bitter text-[#2F1D7B]">{task.titulo}</h2>
+          <span className="text-sm bg-neutral-300 rounded-full px-1">#{task.tags}</span>
+        </div>
         <p className="text-sm">{task.fecha}</p>
         <p className="text-sm text-[#C0BBD7] font_cal">{task.descripcion}</p>
       </div>
