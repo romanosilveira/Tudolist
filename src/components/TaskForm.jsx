@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react';
 function TaskForm({ addTask, taskToEdit, handleUpdate }) {
   const [formData, setFormData] = useState({
     titulo: '',
-    fecha: Date,
+    fecha: '',
+    tags: '',
     descripcion: '',
   });
 
@@ -25,6 +26,7 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     if (taskToEdit) {
       // Si estamos editando una tarea existente, la actualizamos
       handleUpdate({ ...taskToEdit, ...formData });
@@ -37,6 +39,7 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
       addTask(newTask);
     }
     setFormData({ titulo: '', fecha: '', descripcion: '' }); // Limpiar el formulario
+
   };
 
 
@@ -49,7 +52,9 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
           <input
             type="text"
             name="titulo"
-            value={formData.titulo }
+
+            value={formData.titulo || ''}
+
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -59,7 +64,7 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
           <label className="block text-sm font-medium mb-1">Descripción:</label>
           <textarea
             name="descripcion"
-            value={formData.descripcion}
+            value={formData.descripcion || ''}
             onChange={handleChange}
             required
             className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none h-24 focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -69,11 +74,22 @@ function TaskForm({ addTask, taskToEdit, handleUpdate }) {
           <label className="block text-sm font-medium mb-1">Fecha límite:</label>
           <input
             name="fecha"
-            value={formData.fecha}
+            value={formData.fecha || ''}
             type='date'
             onChange={handleChange}
             required
             className="w-full p-4 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Etiqueta:</label>
+          <input
+            name="tags"
+            value={formData.tags || ''}
+            type='text'
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-2 border border-gray-300 rounded-md resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
         </div>
         <button
